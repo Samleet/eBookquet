@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf8"/>
+<title>Welcome to JQL - SQL in the DOM!</title>
+
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/custom.css" />
+<script src="js/jsql.zero.raw.js">     </script>
+</head>
+
+<body>
+    <section class="jsql-page">
+        <div class="slide active" data-id="1">
+            <h1>Hi!</h1>
+            <p>Welcome to <b class="bold">J</b>avascript <b>Q</b>uery <b>L</b>anguage &minus; The modern <s>SQL</s> in the DOM!
+            <button id="">Take a tour</button>
+        </div>
+
+        <div class="slide silent" data-id="2">
+            <div class="header">
+            <h2 style="display: inline">JSQL:</h2> is a lightweight library built on-top of the Javascript Runtime Engine(JRE). 
+            It was an idea conceived as at June 2019. The  goal  was to make DOM data fetching / query as  seemless like an SQL 
+            data model
+            </div>
+            <hr/>
+
+            <br/>
+            <br/>
+            <strong>INTRODUCTION:</strong>
+            JSQL works with the Document Object Model(DOM) and The Window Object Model(WOM), thus using it's rich query engine 
+            to expose all dataset available in the DOM & WOM table. JSQL tends to use the SQL-LIKE SELECT pattern  to  neglect 
+            the complex traditional javascript DOM & window getter / parser. it handles the DOM & WOM as the table for it data 
+            schemes.
+            <br/>
+            <br/>
+            <br/>
+            <strong>INSTALLATION :</strong>
+            Import the JSQL library / dependencies on your application (You may include at the HEAD or before the closing body
+            section of the page)
+            <br/>
+            <br/>
+            <code>&#8249;script src="path/to/folder/jsql.zero.min.js"/&#8250;</code>
+            <br/>
+            <br/>
+            You may choose to install the minified version(<i>jsql.zero.min</i>) or the raw version(<i>jql.zero.raw</i>) of JSQL 
+            which contains all commenting and code structure.
+            <br/>
+            <br/>
+            <br/>
+            <strong>JSQL METHODS:</strong>
+            <p><span style="color:blue">JSQL on the DOM:</span> you can select any of the following data field [text, html,*
+            (html dataset), value(from form fields) or attributes(class, id, e.t.c)]</p>
+            <b>1.</b> jsql.run("SELECT * FROM document"); //or [SELECT * from DOM]
+            <br/>
+            <br/>
+            <b>2.</b> jsql.run("SELECT text FROM document");
+            <br/>
+            <br/>
+            <b>3.</b> jsql.run("SELECT html FROM document");
+            <br/>
+            <br/>
+            <b>4.</b> jsql.run("SELECT value FROM document");
+            <br/>
+            <br/>
+            <b>5.</b> jsql.run("SELECT text FROM document WHERE element = '.selector' "); <i>//you  may  use any css selector 
+            such as [tags, class, id, attribute e.t.c]</i>
+            <br/>
+            <br/>
+            <b>6.</b> jsql.run("SELECT class FROM document WHERE element != '#selector'"); <i>//you  may  use any css selector 
+            such as [tags, class, id, attribute e.t.c]</i>
+            <br/>
+            <br/>
+            <p style="color:red">NOTE: The JSQL DOM query is case insensitive. Therefore using [DOM] is same as using [dom]
+            </p>
+            <br/>
+            <br/>
+            <p><span style="color:blue">JSQL on the WOM:</span> you can select any property available on the windows object 
+            such as userAgent, location, screen, client, browser e.t.c</p>
+            <b>1.</b> jsql.run("SELECT location FROM window"); //or [SELECT location from WOM]
+            <br/>
+            <br/>
+            <b>2.</b> jsql.run("SELECT navigator.userAgent FROM window");
+            <br/>
+            <br/>
+            <b>3.</b> jsql.run("SELECT href FROM window WHERE property  = 'location' ");<i> //you may use any window property 
+            with the WHERE clause when dealing with chained / object properties</i>
+            <br/>
+            <br/>
+            <b>4.</b> jsql.run("SELECT that FROM window WHERE property != 'property' ");<i> //you cannot use the NOT operator 
+            when dealing with windows object, therefore this query will return an error</i>
+            <br/>
+            <br/>
+            <p style="color:red">NOTE: The JSQL WOM query is case insensitive. Therefore using [WOM] is same as using [wom]
+            </p>
+        </div>
+    </section>
+
+<script>
+    window.addEventListener('load', function() {
+        /*
+        alert(jsql.run("SELECT class FROM document WHERE element = 'b'")); //JSQL will fetch element that has CLASS attribute
+        */
+    });
+
+    //Custom Animations using Pure Javascripting
+    document.querySelector('button').addEventListener('click', function(){
+        document.querySelector('[data-id="1"]').setAttribute('id', 'exit')
+        setTimeout(() => {
+        document.querySelector('[data-id="1"]').style.display =    'none';
+        }, 1000);
+        setTimeout(() => {
+        document.querySelector('[data-id="2"]').setAttribute('id', 'load')
+        document.querySelector('* >.jsql-page').setAttribute('id', 'tour')
+        }, 1000);
+    })
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+</script>
+</body>
+</html>

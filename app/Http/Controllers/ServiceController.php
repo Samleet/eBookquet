@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\CategoryService;
+use App\Services\GlobalService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,9 +15,9 @@ class ServiceController extends Controller
      */
     private $service;
 
-    public function __construct(CategoryService $CategoryService){
+    public function __construct(GlobalService $GlobalService){
 
-        $this->service = $CategoryService;
+        $this->service = $GlobalService;
 
     }
 
@@ -32,14 +32,4 @@ class ServiceController extends Controller
 
     }
 
-    /**
-     * @param Request $request
-     * @return JsonResponse
-     * @throws ApplicationException
-     */
-    public function create(Request $request){
-
-        return response()->json($this->service->create($request));
-
-    }
 }

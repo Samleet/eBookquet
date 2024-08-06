@@ -49,6 +49,17 @@ class OauthController extends Controller
     }
 
     /**
+     * @param RegisterRequest $RegisterRequest
+     * @return JsonResponse
+     * @throws ApplicationException
+     */
+    public function bookhut(Request $request){
+
+        return response()->json($this->Oauth->bookhut($request));
+
+    }
+
+    /**
      * @param Request $Request
      * @return JsonResponse
      * @throws ApplicationException

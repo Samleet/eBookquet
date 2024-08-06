@@ -17,45 +17,67 @@ use Illuminate\Support\Facades\Storage;
 class LibraryService {
 
     public function __construct(){
+        
         //
 
     }
 
     public function index($request){
         $limit = limit(@$request->limit);
-        $library = user()->library()->orderBy('id', 'DESC')->get()
-        ->take($limit);
-        $books = [];
+        $library = bookhut()->library(); //////////////////////////////
+        $data = [
+            'insight' => [],
+            'reading' => [],
+            'completed' => [],
+        ];
 
-        foreach($library as $data){
-            if( $data->book){
-                $books[] = $data->book; //fetch books not yet completed
-            }
+        $reading =   (clone $library)->where($arg = ['completed' => 0])
+            ->latest('updated_at')
+            ->get();
+        $completed = (clone $library)->where($arg = ['completed' => 1])
+            ->get();
+        
+        
+        foreach($reading as $book){
+            
+            $data['reading'][] = $book->book; //fetch the book model
+
         }
 
+        foreach($completed as $book){
+            
+            $data['completed'][] = $book->book; //fetch the book model
+
+        }
+        
         return [
-            'data' => $books
+            'status' => 200,
+            'data' => $data
         ];
     }
 
     public function create($request){
-        $book = Book::find($request->id);
-        $signature = user()->signature();
+        $book = Book::findOrFail($request->book_id);
+        $shelf = $request->shelf_id;
+        $signature = user()->ref();
 
-        if(!$book){
-            throw new ApplicationException(Error::RESOURCE_NOT_FOUND);
-        }
+        //TODO:
+        //check rental limit
 
-        //check if in my library
-        $lib = user()->library()->where('book_id', $book->id)->first();
-        if($lib){
-            throw new ApplicationException(Error::RESOURCE_IS_OWNED );  
+
+        //check if in bookshelf
+        $library = bookhut()->library()->where('book_id','=',$book->id)
+            ->first();
+        if($library){
+            
+            throw new ApplicationException(Error::RESOURCE_IS_OWNED );
+            
         }
 
         //bootstrap user storage
         File::ensureDirectoryExists("storage/library/".( $signature ));
 
-        //copy  book from source
+        //copy- book from source
         if(!Storage::disk('public')->exists(
             "library/$signature/".$book->storage()) // book not in disk
         ){
@@ -67,214 +89,108 @@ class LibraryService {
 
         //create link in library
         $library = new Library();
-        $library->user_id = user()->id;
+        $library->bookhut_id = bookhut()->id;
+        $library->bookshelf_id = $shelf;
         $library->book_id = $book->id;
         $library->save();
 
         return [
-            'message' => "You've successfully added book to bookshelf",
-            'data' => $library
-        ];
-    }
-
-    public function delete($request){
-        $type = $request->type;
-        $book = user()->library()->where('book_id', $request->id)->first(
-            //
-        );
-
-        if($type == 'wishlist'){
-            $id = $request->id;
-            $book = user()->wishlist()->where('book_id', $id)->first(
-                //
-            );
-        }
-
-        if(!$book){
-            throw new ApplicationException(Error::RESOURCE_NOT_FOUND);
-        }
-
-        if($type == 'library' ){
-            $book->notes()->delete();
-        }
-        
-        $book->delete();
-
-        return [
-            'message' => "You've successfully deleted book from shelf",
+            'status' => 200,
+            'message' => "You've successfully added a book to library",
+            'data' => $library->fresh()
         ];
     }
 
     public function show($request){
-        $library = user()->library()->where('book_id','=',$request->id)
-        ->first();
+        $library = bookhut()->library()->where('book_id',$request->id)
+            ->first();
+        $tmpData = $library->toArray();
+
+        if(!$library) 
+            return;
+
         $library->touch();
 
         return [
-            'data' => $library->book
-        ];
-    }
-
-    public function reading($request){
-        $limit = limit(@$request->limit);
-        $library = user()->library->take($limit);
-        $books = [];
-
-        foreach($library as $book){
-            if(!$book->completed){
-                $books[] = $book->book; //fetch books not yet completed
-            }
-        }
-
-        shuffle($books);
-
-        return [
-            'data' => $books
-        ];
-    }
-
-    public function all($request){
-        $limit = limit(@$request->limit);
-        $library = Book::inRandomOrder()->take($limit)->get();
-
-        return [
+            'status' => 200,
             'data' => $library
         ];
     }
 
-    public function recent($request){
-        $limit = limit(@$request->limit);
-        $library = user()->library()->orderBy('updated_at', 'DESC')
-        ->get()
-        ->take($limit);
-        $books = [];
+    public function update($request){
+        $library = $this->show($request)['data']; ////////////////////
+        $book = $library->book;
+        $reqIgnore = [
+            'statistics'
+        ];
+        $statistics = $request
+            ->statistics;
+        $totalPages = $statistics[
+            'pages'
+        ];
+        $currentPage = $request
+            ->current_page;
+        $isCompleted = $currentPage 
+            >= $totalPages;
 
-        foreach($library as $data){
-            if( $data->book){
-                $books[] = $data->book; //fetch books not yet completed
-            }
+
+        if(!$library) 
+            return;
+
+        $library->update($request->except(
+            $reqIgnore
+        ));
+
+        if($statistics){
+            /*
+            $statistics = $request->statistics;
+            $data = json_decode($library->statistics ?? '{}', true );
+            $currentPage = $statistics['page'];
+
+            unset($statistics['page']);
+
+            $data[
+                $currentPage
+            ] = $statistics;
+
+            $library->update([
+                'statistics' => json_encode($data) //updating book data
+            ]);
+            */
+            
         }
 
-        return [
-            'data' => $books
-        ];
-    }
+        if($isCompleted){
+            $library->update([
 
-    public function top($request){
-        $limit = limit(@$request->limit);
-        $library = Book::join(
-            'libraries', 'libraries.book_id', '=', 'books.id'
-        )
-        ->select('books.*')
-        ->withCount('libraries')
-        ->groupBy('books.id')
-        ->orderBy('libraries_count', 'DESC')
-        ->take($limit)
-        ->get();
-
-        return [
-            'data' => $library
-        ];
-    }
-
-    public function wishlist($request){
-        $limit = limit(@$request->limit);
-        $wishlist = user()->wishlist()->orderBy('id', 'DESC')->get()
-        ->take($limit);
-        $books = [];
-
-        foreach($wishlist as $book){
-            if( $book->book){
-                $books[] = $book->book; //fetch books not yet completed
-            }
-        }
-
-        return [
-            'data' => $books
-        ];
-    }
-
-    public function favorite($request){
-        $wishlist = user()->wishlist()->where('book_id', $request->id)
-        ->first();
-
-        if(!$wishlist){
-            $wishlist = user()->wishlist()->create([
-                'book_id' => $request->id
+                'completed' => $isCompleted //////////////////////////
+                
             ]);
         }
-        else{
-            $wishlist->delete();
-
-            return [
-                'message' => 'Book successfully deleted from wishlist',
-                'data' => $wishlist
-            ];    
-        }
-
-        return [
-            'message' => 'You have succesfully added book to wishlist',
-            'data' => $wishlist
-        ];
     }
 
-    public function comments($request){
-        $book = Book::findOrFail($request->id)->load('comments');
-        $comments = [];
-
-        foreach($book->comments as $comment){
-            $user = User::find($comment->user_id);
-            $reply = null;
-
-            if($comment->reply_to){
-                $reply = $reference = Comment::find($comment->reply_to);
-                if($reply){
-                    $user = User::find(
-                        $reply->user_id
-                    );
-                    $reply->user = 
-                    $user->id == user()->id ? 'Me' : $user->fullname;
-
-                    $reply->message = substr($reply->message, 0, 60)   .
-                    (true && strlen($reply->message)>60? '...' : '')   ;
-                }
-            }
-
-            if(!$user) continue;
-
-            $comments[] = [
-                'id' => $comment->id,
-                'user' => [
-                    'id' => $user->id,
-                    'name' => $user->fullname
-                ],
-                'message' => $comment->message,
-                'date' => $comment->created_at,
-                'highlight' => $comment->highlight,  // significant tags
-                'reply' => $reply ?? null
-            ];
-        }
-
-        return [
-            'data' => $comments
-        ];
-    }
-
-    public function postComment($request){
-        $book = Book::findOrFail($request->id)->load('comments');
-
-        $comment = $book->comments()->create([
-            'user_id' => user()->id,
-            'book_id' => $book->id,
-            'message' => $request->message,
-            'reply_to' => $request->reply
-        ]);
-
-        return [
-            'message' => 'You have succesfully posted a new comment. ',
-            'data' => $comment
-        ];
+    public function delete($request){
+        $library = $this->show($request)['data']; ////////////////////
+        $book = $library->book;
+        $signature = user()->ref();
         
-        ////////////////////////////////////////////////////////////////
+        //remove book resource
+        Storage::disk('public')
+            ->delete(
+            "library/$signature/".$book->storage()
+        );
+
+        //delete assoc relation
+        $library->cards()->delete();
+        $library->vocals()->delete();
+        $library->posts()->delete();
+
+        $library->delete();
+
+        return [
+            'status' => 200,
+            'message' => "Book was successfully deleted from library",
+        ];
     }
+
 }

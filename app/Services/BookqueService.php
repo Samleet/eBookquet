@@ -17,8 +17,18 @@ class BookqueService {
     }
 
     public function index($request){
-        //
+        $bookque = Bookquet::where('access', '!=', null)->orderBy('id', 'DESC')
+        ->get();
 
+        $data = [];
+
+        foreach($bookque as $bookq){
+            $data[] = $bookq->load('books', 'bookhuts', 'members');
+        }
+
+        return [
+            'data' => $data
+        ];
     }
 
     public function show($request){
@@ -43,7 +53,9 @@ class BookqueService {
 
         foreach($bookque as $bookquet){
             if($bookquet->owner()){
+
                 //continue;
+                
             }
 
             $data[] = $bookquet->load('books', 'bookhuts', 'members');

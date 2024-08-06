@@ -1,0 +1,1 @@
+var rave,payWithFlutter=(i,o)=>{const key="FLWPUBK_TEST-0ba5e40276350b0927569f7dda0bf10d-X";rave=getpaidSetup({PBFPubKey:key,customer_email:i.email,amount:i.amount,currency:i.currency,txref:i.reference,onclose:function(e){$(".sleek-cover * div.loader").stop(!0).fadeOut("slow")},meta:[{}],callback:o})};

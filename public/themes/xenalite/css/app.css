@@ -1,0 +1,1959 @@
+@font-face { font-size: inherit; font-family: 'Century-Thin'; src: url(vendors/fonts/Century-Thin/Century-Goth-Thin.ttf); }
+@font-face { font-size: inherit; font-family: 'Kimberly'; src: url(vendors/fonts/kimberley/kimberley.ttf); }
+@font-face { font-size: inherit; font-family: 'FerroRosso'; src: url(vendors/fonts/FerroRosso/FerroRosso.ttf); }
+@font-face { font-size: inherit; font-family: 'Sunset'; src: url(vendors/fonts/the_sunset/The-Sunset.ttf); }
+@font-face { font-size: inherit; font-family: 'Coolvetica'; src: url(vendors/fonts/Coolvetica/coolvetica.ttf); }
+@font-face { font-size: inherit; font-family: 'The Wolf City'; src: url(vendors/fonts/wolf_in_city/Wolf\ in\ the\ City.ttf); }
+@font-face { font-size: inherit; font-family: 'Montserrat'; src: url(vendors/fonts/montserrat/Montserrat-Regular.otf); }
+@font-face { font-size: inherit; font-family: 'Santoshi'; src: url(vendors/fonts/Satoshi/Satoshi-Regular.otf); }
+@font-face { font-size: inherit; font-family: 'spartan-mb'; src: url(vendors/fonts/spartan-mb/SpartanMB-Regular.otf); }
+@font-face { font-size: inherit; font-family: 'luvable'; src: url(vendors/fonts/Luvable/Luvable.ttf); }
+@font-face { font-size: inherit; font-family: 'choko_milky'; src: url(vendors/fonts/choko_milky/ChokoMilky.ttf); }
+
+:root {
+    --primary: #1d9bf0;
+    --secondary: #ffffff;
+}
+
+html, body {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+    font-family:  "Santoshi" !important;
+    overflow-x: hidden;
+}
+* {
+    outline: none !important;
+    text-decoration: none !important;
+}
+section.App {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    overflow: auto;
+}
+.App #auth {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: url('../images/splash.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+#auth .page {
+    position: relative;
+    top: 30vh;
+    width: 400px;
+    height: auto;
+    min-height: 300px;
+    background: rgba(255,255,255,.8);
+    margin: auto;
+    margin-bottom: 40vh;
+    border-radius: 15px;
+    padding: 30px 50px;
+    animation: page 1s 0s ease forwards;
+    overflow: hidden;
+}
+@keyframes page {
+    0% {
+        top: 20vh;
+        opacity: .0;
+    }
+    100% {
+        top: 30vh;
+        opacity: 1;
+    }
+}
+#auth .page h2 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+#auth .page span {
+    display: block;
+    font-size: 11px;
+    color: #454242;
+    margin-bottom: 30px;
+}
+#auth .page span b {
+    color: #1d9bf0;
+}
+#auth .page input {
+    height: 40px;
+    margin-bottom: 10px;
+    border: none;
+    border-bottom: 1px solid #1d9bf021;
+    font-size: 10px;
+    outline: none;
+    border-radius: 0px;
+    box-shadow: none;
+    background: transparent;
+}
+#auth .page a#link {
+    display: block;
+    font-size: 10px;
+    text-align: center;
+    margin: 5px;
+    margin-top: 10px;
+}
+#auth .page button {
+    border: none;
+    width: 100%;
+    height: 30px;
+    margin-top: 10px;
+    font-size: 12px;
+    color: #fff;
+    background: #1d9bf0;
+    border-radius: 4px;
+}
+#auth footer {
+    position: fixed;
+    bottom: -50px;
+    width: 100%;
+    animation: footer 1s 0s ease forwards;
+}
+#auth footer .bar {
+    width: 400px;
+    height: 30px;
+    color: white;
+    background: #1d9bf0;
+    padding: 10px;
+    font-size: 10px;
+    margin: auto;
+    text-align: center;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+@keyframes footer {
+    0% {
+        bottom: -40px;
+    }
+    100% {
+        bottom: 0;
+    }
+}
+.App .headbar
+,
+.App .mainbar
+,
+.App .sidebar {
+    position: fixed;
+    transition: 0.5s ease-in-out;
+    overflow: auto;
+}
+.App .headbar.resize
+,
+.App .mainbar.resize {
+    left: 0;
+    width: 100%;
+}
+.App .sidebar.toggle {
+    left: -20%;
+    opacity: .1;
+}
+.App .sidebar {
+    top: 0;
+    left: 0;
+    width: 20%;
+    height: 100%;
+    z-index: 2;
+    background: #ffffff;
+}
+.App .sidebar .logo {
+    font-size: 18px;
+    letter-spacing: 2px;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+.App .sidebar .logo img {
+    border-radius: 100px;
+}
+.App .sidebar .user {
+    height: 250px;
+    text-align: center;
+    padding-top: 30px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-family: 'Santoshi';
+}
+.App .sidebar .user .image {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: auto;
+    border-radius: 100%;
+}
+.App .sidebar .user span {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+}
+.App .sidebar .user .online {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+}
+.App .sidebar nav {
+    font-size: 14px;
+    font-family: 'Santoshi';
+}
+.App .sidebar nav ul {
+    margin: 0;
+    padding: 0;
+}
+.App .sidebar nav ul li {
+    list-style: none;
+    height: 35px;
+    padding: 5px;
+    padding-top: 7px;
+    padding-left: 30px;
+    color: #333 !important;
+    margin-bottom: 7px;
+}
+.App .sidebar nav ul a {
+    display: block;
+}
+.App .sidebar nav ul li i {
+    display: inline-block;
+    width: 20px;
+    margin-right: 5px;
+}
+.App .sidebar nav ul li s {
+    position: absolute;
+    right: 9px;
+    width: 7px;
+    height: 7px;
+    border-radius: 100px;
+    margin-top: 8px;
+    margin-right: 10px;
+    background: var(--primary);
+}
+.App .sidebar nav .ion-ios-lock {
+    margin-top: 0;
+    z-index: 1;
+    right: 10px;
+    background: none;
+}
+.App .sidebar nav ul li .tip {
+    position: relative;
+    display: inline-block;
+    top: -2px;
+    width: 40px;
+    height: 15px;
+    font-size: 9px;
+    padding: .5px;
+    text-align: center;
+    color: #fff;
+    border-radius: 3px;
+    background: var(--primary);
+    text-transform: uppercase;
+}
+.App .sidebar nav ul li:hover
+,
+.App .sidebar nav ul li.active {
+    background: #f4f5f8;
+}
+.App .headbar {
+    top: 0;
+    left: 20%;
+    width: 80%;
+    height: 60px;
+    z-index: 1;
+    padding: 10px;
+    padding-left: 50px;
+    padding-right: 50px;
+    box-shadow: 0px 0px 20px 0px #ccc;
+    background: #f4f5f8;
+    overflow: visible;
+}
+.App .headbar .menu {
+    font-size: 20px;
+}
+.App .headbar .menu font {
+    display: none;
+    position: relative;
+    top: -3px;
+    font-size: 12px;
+    font-weight: bold;
+}
+.App .headbar .link {
+    float: right;
+    height: 100%;
+    font-family: 'Santoshi';
+}
+.App .headbar .link .icon {
+    display: inline-block;
+    float: right;
+    min-width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    padding: 5px;
+    padding-top: 10px;
+    text-align: center;
+    font-size: small;
+    overflow: visible;
+}
+.App .headbar .link .icon span {
+    position: relative;
+    font-size: 20px;
+    top: -5px;
+}
+.App .headbar .link .icon a {
+    color: #f30;
+    letter-spacing: 2px;
+}
+.App .headbar .link .icon img {
+    position: relative;
+    top: -5px;
+    border-radius: 100%;
+}
+.App .headbar .link .icon s {
+    display: inline-block;
+    position: absolute;
+    font-size: 5px;
+    color: var(--primary);
+    margin-left: -8px;
+    margin-top: 20px;
+}
+.App .mainbar nav.tab {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 140px;
+    width: 484px;
+    height: 50px;
+    border-radius: 5px;
+    padding: 5px;
+}
+.App .mainbar nav.tab button {
+    width: 48%;
+    height: 40px;
+    border: none;
+    background: none;
+    border-bottom: 3px solid #f4f5f8;
+    font-size: 12px;
+    transition: 0.2s ease-in-out;
+    font-family: 'Montserrat';
+}
+.App .mainbar nav.tab button:hover
+,
+.App .mainbar nav.tab button.focus {
+    color: var(--primary);
+    border-bottom-color: #fff;
+}
+.App .headbar .droplist {
+    position: absolute;
+    right: 40px;
+    margin-top: 50px;
+    width: 250px;
+    height: 300px;
+    background: #fff;
+    box-shadow: 0px 5px 10px 0px #ccc;
+    visibility: hidden;
+    border-radius: 10px;
+    opacity: 0;
+    transition: 0.5s ease-in-out;
+    overflow: hidden;
+}
+.App .headbar .droplist .flow {
+    width: 264px;
+    height: 270px;
+    margin-top: 30px;
+    overflow: auto;
+}
+.App .headbar .droplist .flag {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 30px;
+    padding: 5px;
+    font-size: 11px;
+    color: var(--primary);
+    cursor: pointer;
+    box-shadow: 0px 0px 10px 0px #eee;
+}
+.App .headbar #mail:hover .droplist {
+    margin-top: 0;
+    opacity: 1;
+    visibility: visible;
+}
+.App .headbar .droplist .log {
+    width: 100%;
+    padding: 20px;
+    margin-top: 10vh;
+    font-family: 'Montserrat';
+}
+.App .headbar .droplist .log i {
+    display: block;
+    font-size: 25px;
+    color: var(--primary);
+}
+.App .headbar .droplist ul {
+    margin: 0;
+    padding: 0;
+}
+.App .headbar .droplist ul li {
+    position: relative;
+    list-style: none;
+    height: 60px;
+    text-align: left;
+    background: #fff;
+    padding: 5px;
+    padding-top: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+.App .headbar .droplist ul li:hover
+,
+.App .headbar .droplist ul li.state {
+    background: #f4f5f8;
+}
+.App .headbar .droplist ul li span {
+    display: inline-block;
+    width: 100%;
+    padding: 5px;
+    font-size: 12px !important;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.App .headbar .droplist ul li a {
+    display: inline-block;
+    width: auto;
+    height: 20px;
+    color: #fff !important;
+    text-align: center;
+    padding: 4px;
+    margin-left: 4px;
+    margin-bottom: 5px;
+    font-size: 8px;
+    border-radius: 50px;
+}
+.App .headbar .droplist ul small {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    color: #999;
+    font-size: 10px;
+}
+.App .mainbar {
+    top: 0;
+    left: 20%;
+    width: 80%;
+    height: 100%;
+    padding: 50px;
+    padding-top: 100px;
+    padding-bottom: 0;
+    background: #f4f5f8 url('../images/background.png');
+    background-size: cover;
+}
+.App .mainbar section, section {
+    position: relative;
+}
+.App .mainbar .trailer {
+    width: 100%;
+    height: 60px;
+    font-family: 'Montserrat';
+}
+.App .mainbar .trailer h2 {
+    font-size: 18px;
+    border-bottom: 1px solid #eee;
+}
+.App .mainbar .trailer h2 font {
+    color: var(--primary);
+}
+.App .mainbar .trailer h2 span {
+    display: inline-block;
+    color: #999;
+    font-size: 12px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+.App .mainbar .trailer h2 button {
+    float: right;
+    width: 150px;
+    height: 35px;
+    font-size: small;
+    margin-top: -28px;
+    border: none;
+    color: #fff;
+    background: var(--primary);
+    border: 1px solid var(--primary);
+    border-radius: 100px;
+    transition: 0.2s ease-in-out;
+}
+.App .mainbar .trailer h2 a button:hover {
+    color: var(--primary);
+    background: #fff;
+    border: 1px solid var(--primary);
+}
+.App .mainbar .trailer h2 span.route {
+    margin-bottom: -20px;
+}
+.App .mainbar .row .card {
+    height: auto;
+    min-height: 200px;
+    border: none;
+    text-align: center;
+    overflow: auto;
+}
+.App .mainbar .row .card.shadow-light {
+    box-shadow: 0px 10px 20px 0px #eee;
+}
+.App .mainbar .row .card .stats {
+    position: relative;
+    height: 200px;
+    padding: 40px;
+    text-align: left;
+}
+.App .mainbar .row .card .stats .img1 {
+    position: absolute;
+    top: 0;
+    right: -150px;
+    transform: rotate(0deg) scale(1.0);
+}
+.App .mainbar .row .card .stats .img2 {
+    position: absolute;
+    top: 10px;
+    right: -50px;
+}
+.App .mainbar .row .card .sheet {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    padding: 40px 40px 40px 20px;
+    font-size: small;
+    font-family: 'Montserrat';
+}
+.App .mainbar .row .card .sheet a {
+    display: block;
+    width: 100px;
+    height: 30px;
+    padding: 7px;
+    padding-left: 0;
+    top: 120px;
+    left: 40px;
+    border-radius: 100px;
+    color: var(--primary);
+    font-weight: normal;
+    font-family: 'Santoshi';
+}
+.App .mainbar .row .card .stats h5 {
+    height: 30px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    font-family: 'Santoshi';
+}
+.App .mainbar .row .card .stats h2 {
+    margin-bottom: -5px;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: 'Montserrat';
+}
+.App .mainbar .row .card .stats a {
+    position: absolute;
+    right: 40px;
+    bottom: 10px;
+    color: var(--primary);
+    font-size: 10px;
+    font-family: 'Montserrat';
+}
+.App .mainbar .row .card .stats span {
+    letter-spacing: 2px;
+    font-size: 10px;
+    color: #090;
+    font-family: 'Santoshi';
+}
+.App .mainbar .row .card .stats ul {
+    margin: 0;
+    padding: 0;
+}
+.App .mainbar .row .card .stats ul li {
+    list-style: none;
+    margin-bottom: 7px;
+    font-size: 11px;
+    font-family: 'Montserrat';
+}
+.App .mainbar .row .card .stats ul span {
+    float: right;
+    font-size: 10px;
+}
+.App .mainbar .row .card .stats button {
+    display: block;
+    width: 100%;
+    height: 35px;
+    margin: auto;
+    margin-top: 15px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    background: var(--primary);
+    font-size: 12px;
+    font-family: 'Santoshi';
+}
+.App .mainbar .row .card.c {
+    height: 200px;
+    background: linear-gradient(
+        var(--primary), 
+        #1d9bf0
+    )
+}
+.App .mainbar .row .card .coin {
+    padding: 20px;
+}
+.App .mainbar .row .card .coin ul {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat';
+}
+.App .mainbar .row .card .coin ul li {
+    list-style: none;
+    width: 100%;
+    height: 40px;
+    color: #fff;
+    margin-bottom: 10px;
+    font-size: 12px;
+    text-align: left;
+}
+.App .mainbar .row .card .coin .d li {
+    color: var(--primary);
+}
+.App .mainbar .row .card .coin ul li:last-child {
+    margin-bottom: 0;
+}
+.App .mainbar .row .card .coin img {
+    margin-right: 5px;
+    border-radius: 100%;
+}
+.App .mainbar .row .card .coin span {
+    width: 100px;
+    float: right;
+    font-size: 10px;
+    text-align: right;
+}
+.App .mainbar .row .card.t {
+    background: none;
+    border-radius: 10px;
+}
+.App .mainbar .row .card.w {
+    display: block;
+    height: 200px;
+    background: none;
+    text-align: left;
+    overflow: hidden;
+}
+.App .mainbar .row .card.w .n-w {
+    text-align: center;
+    font-size: 15px;
+    font-family: 'Montserrat';
+}
+.App .mainbar .row .card.w .n-w i {
+    display: block;
+    font-size: 50px;
+    color: #a2c7d4;
+    margin-top: 40px;
+}
+.App .mainbar .row .card.w .n-w a {
+    display: block;
+    margin-top: 5px;
+}
+.App .mainbar .row .card.w .box {
+    width: 100%;
+    height: 240px;
+    white-space: nowrap;
+    overflow: auto;
+}
+.App .mainbar .row .card .wallet {
+    position: relative;
+    display: inline-block;
+    width: 120px;
+    height: 200px;
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px 0px #eee;
+    font-size: 12px;
+    font-family: 'Montserrat';
+    background: linear-gradient(var(--primary), #7e1739);
+    color: #fff;
+    overflow: hidden;
+}
+.App .mainbar .row .card .wallet.sm {
+    width: 120px;
+}
+.App .mainbar .row .card .wallet.lg {
+    width: 140px;
+}
+.App .mainbar .row .card .wallet img {
+    display: block;
+    margin-bottom: 10px;
+    border-radius: 100%;
+}
+.App .mainbar .row .card .wallet .n {
+    color: #ccc;
+}
+.App .mainbar .row .card .wallet .s {
+    color: #ccc;
+    float: right;
+}
+.App .mainbar .row .card .wallet .a {
+    font-size: 15px;
+}
+.App .mainbar .row .card .wallet .r {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    font-size: 11px;
+}
+.App .mainbar .row .card .wallet.sm .n {
+    display: inline-block;
+    width: 60px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.App .mainbar .wallet > .cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding-top: 70px;
+    background: red;
+    opacity: .0;
+    transition: 0.2s ease-in-out;
+}
+.App .mainbar .wallet > .cover button {
+    display: block;
+    margin: auto;
+    width: 120px;
+    height: 35px;
+    color: #fff;
+    background: var(--primary);
+    border: none;
+    border-radius: 100px;
+    margin-bottom: 10px;
+    font-size: 11px;
+    font-family: 'Santoshi';
+}
+.App .mainbar .wallet:hover .cover {
+    opacity: 1;
+    background: rgba(255,255,255,.8);
+}
+.App .mainbar .row .card h4 {
+    margin-top: 100px;
+    font-size: 20px;
+    color: #666;
+}
+.App .mainbar #dashboard .board {
+    position: relative;
+    height: 120px;
+    border-radius: 5px;
+    padding: 20px;
+    padding-right: 400px;
+    font-size: 16px;
+    margin-top: 30px;
+    margin-bottom: 25px;
+    background: #fff url('../images/sky.png') no-repeat;
+    background-size: 70%;
+    background-position: 0 40px;
+    box-shadow: -5px -5px 15px 0px #eee;
+    font-size: 14.4px;
+    font-family: 'Montserrat';
+    overflow: hidden;
+}
+.App .mainbar #dashboard .board a {
+    display: block;
+    width: 150px;
+    height: 30px;
+    padding: 5px;
+    margin-top: 10px;
+    color: var(--primary);
+    font-size: small;
+}
+.App .mainbar .row h2.title {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-family: 'Santoshi';
+}
+.App .mainbar #dashboard .board img {
+    position: absolute;
+    top: 40px;
+    right: 50px;
+}
+.App .mainbar .row h2.title a {
+    float: right;
+    color: var(--primary);
+    font-size: 12px;
+}
+.App .mainbar .row h2 .controls {
+    position: absolute;
+    right: 15px;
+    top: 20px;
+    width: auto;
+    height: 30px;
+    background: #fff;
+    font-size: 0px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.App .mainbar .row h2 .controls span {
+    display: inline-block;
+    width: 57px;
+    height: 100%;
+    text-align: center;
+    padding: 7px;
+    font-size: 12px;
+    cursor: pointer;
+}
+.App .mainbar .row h2 .controls span:hover,
+.App .mainbar .row h2 .controls span.active {
+    color: #fff;
+    background: #1d9bf0;
+}
+.App .mainbar nav.links {
+    height: 50px;
+    background: #1d9bf0;
+    margin-bottom: 75px;
+    font-size: 0;
+    box-shadow: 0px 10px 10px 0px #eee;
+}
+.App .mainbar nav.links ul {
+    margin: 0;
+    padding: 0;
+}
+.App .mainbar nav.links a {
+    color: #fff;
+}
+.App .mainbar nav.links ul li {
+    display: inline-block;
+    list-style: none;
+    width: 161px;
+    height: 50px;
+    padding-top: 15px;
+    text-align: center;
+    font-size: 12.5px;
+    font-family: 'Santoshi';
+}
+.App .mainbar nav.links ul li:hover
+,
+.App .mainbar nav.links ul li.active {
+    color: var(--primary);
+    background: #f4f5f8;
+}
+.App .mainbar .alert {
+    position: absolute;
+    width: 484px;
+    height: auto;
+    max-height: 70px;
+    padding-right: 80px;
+    top: 140px;
+    margin-bottom: 0;
+    font-size: 12px;
+    font-family: 'Santoshi';
+    overflow: hidden;
+}
+.App .mainbar .alert .icon-r {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 15px;
+    transition: 0.5s ease-in-out;
+}
+.App .mainbar .alert .icon-r:hover {
+    transform: rotate(360deg);
+}
+.App .mainbar .content, .App .content {
+    height: auto;
+    padding: 20px 0 0 0;
+    margin-bottom: 50px;
+    background: transparent;
+}
+.App .mainbar .content .form {
+    width: 484px;
+    float: left;
+}
+.App .mainbar .content .side {
+    width: 400px;
+    float: right;
+}
+.App .mainbar .content form p {
+    position: relative;
+}
+.App .mainbar .content form p i {
+    position: absolute;
+    bottom: 0;
+    display: inline-block;
+    width: 40px;
+    height: 44px;
+    text-align: center;
+    line-height: 22px;
+    padding: 10px;
+    font-style: normal;
+    font-weight: bold;
+}
+.App .mainbar .content form p s {
+    position: absolute;
+    top: 35px;
+    right: 15px;
+    color: var(--primary);
+}
+.App .mainbar .content form p label {
+    position: relative;
+    display: block;
+    color: #827f7f;
+    font-size: 12px;
+    font-family: 'Santoshi';
+}
+.App .mainbar .content form p input
+,
+.App .mainbar .content form p select
+,
+.App .mainbar .content form p textarea {
+    width: 100%;
+    height: 44px;
+    border: 1px solid #eee;
+    padding-left: 40px;
+    border-radius: 10px;
+    background: #fff;
+    font-size: 12px;
+    font-family: 'Santoshi';
+    transition: 0.5s ease-in-out;
+}
+.App .mainbar .content form p select {
+    padding-left: 35px;
+    box-shadow: none;
+}
+.App .mainbar .content form p select option {
+    height: 100%;
+}
+.App .mainbar .content form p textarea {
+    height: 150px;
+    padding-top: 10px;
+    padding-left: 15px;
+    resize: none;
+}
+.App .mainbar .content form p .input-info {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #333;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    font-size: small;
+    margin-right: 15px;
+}
+.App .mainbar .content form p .input-card {
+    display: block;
+    position: absolute;
+    top: 27px;
+    right: 1px;
+    width: 150px;
+    height: 42px;
+    padding: 5px;
+    padding-top: 10px;
+    font-size: small;
+    text-align: center;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color: #000;
+    background: #f8f9fa;
+    font-family: 'Santoshi';
+}
+.App .mainbar .content form p .input-text {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-right: 20px;
+    width: 150px;
+    font-size: small;
+    text-align: right;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.App .mainbar .content form p img#loader {
+    display: none;
+    right: 25px;
+}
+.App .mainbar .content form p input:hover
+,
+.App .mainbar .content form p select:hover {
+    box-shadow: 0px 5px 20px 0px #ccc;
+}
+.App .mainbar .content form p input:focus
+,
+.App .mainbar .content form p select:focus {
+    box-shadow: 0px 5px 20px 0px #ccc;
+}
+.App .mainbar .content form p input.error {
+    color: var(--primary);
+}
+.App .mainbar .content form p #file {
+    padding-top: 10px;
+}
+.App .mainbar .content form p button {
+    width: 150px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    background: var(--primary);
+    font-size: small;
+}
+.App .mainbar .content form p button img {
+    display: block;
+    position: relative;
+    margin: auto;
+    width: 30px;
+    height: 30px;
+}
+.App .mainbar .content form > img#loader {
+    display: none;
+    position: absolute;
+    margin-top: -50px;
+}
+.App .mainbar .content form * [disabled] {
+    color: #000;
+    cursor: not-allowed;
+    background: #e6e4e4 !important;
+}
+.App .mainbar .content #flat p {
+    height: 40px;
+    background: #eee;
+    border-radius: 100px;
+    padding-left: 10px;
+}
+.App .mainbar .content #flat p input
+,
+.App .mainbar .content #flat p select {
+    width: 250px;
+    height: 40px;
+    float: right;
+    border-radius: 100px;
+}
+.App .mainbar .content #flat p i {
+    right: 210px;
+    height: 40px;
+}
+.App .mainbar .content #flat p label {
+    display: inline-block;
+    margin-top: 10px;
+}
+.App .mainbar .content #flat p s {
+    display: none;
+}
+.App .mainbar .content #flat h2, #panel {
+    height: 30px;
+    border-bottom: 1px solid #eee;
+    padding-top: 5px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-family: 'Montserrat';
+}
+.App .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999999;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.80);
+    overflow: auto;
+}
+.App .overlay .modal {
+    display: block;
+    position: relative;
+    width: 500px;
+    height: auto;
+    min-height: 300px;
+    padding: 20px;
+    background: #fff;
+    margin: auto;
+    margin-top: 25vh;
+    overflow: auto;
+    border-radius: 10px;
+}
+.App .overlay .modal h2 {
+    height: 40px;
+    border-bottom: 1px solid #eee;
+    font-size: 15px;
+    font-family: 'Montserrat';
+}
+.App .overlay .modal h2 i {
+    margin-right: 10px;
+}
+.App .overlay .modal h2 s {
+    float: right;
+    font-size: 20px;
+    margin-top: -7px;
+}
+.App .overlay .modal span, #alert {
+    display: block;
+    margin-top: 30px;
+    color: rgb(158, 18, 65);
+    font-size: small;
+    font-family: 'Santoshi';  
+}
+.App .overlay .modal span#hint {
+    display: none;
+    position: absolute;
+    left: 0;
+    bottom: 25px;
+    width: auto;
+    max-width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.App .overlay .modal img#loader {
+    display: none;
+    position: absolute;
+    bottom: 20px;
+}
+.App .overlay .modal .form {
+    position: relative;
+    width: 350px;
+    background: #fff;
+    margin: auto;
+    margin-top: 50px;
+    overflow: hidden;
+}
+.App .overlay .modal .emoji {
+    position: relative; 
+    bottom: -5px;
+    font-size: 25px; 
+    font-style: normal; 
+    line-height: 20px;
+}
+.App .overlay .modal .form input,
+.App .overlay .modal .form select {
+    width: 100%;
+    height: 40px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    padding-left: 10px;
+    border-radius: 5px;
+    font-size: 13px;
+    box-shadow: none;
+    font-family: 'Santoshi';
+}
+.App .overlay .modal .form button {
+    border: none;
+    border-radius: 5px;
+    width: 120px;
+    height: 40px;
+    color: #fff;
+    background: var(--primary);
+    font-size: small;
+    font-family: 'Santoshi'; 
+}
+.App .overlay .modal .page {
+    display: none;
+}
+.App .overlay .modal .page.A {
+    display: block;
+}
+.App .overlay .modal .page .flex {
+    margin: 40px 0 40px 0;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.App .overlay .modal .page .card {
+    width: 100px;
+    height: 80px;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 10px;
+    overflow: hidden;
+}
+.App .overlay .modal .page .data {
+    position: absolute;
+    float: left;
+    font-size: 12px;
+    padding-top: 10px;
+    padding-left: 120px;
+}
+.App .overlay .modal .page .data p {
+    margin-bottom: 5px;
+}
+.App .overlay .modal .page .card i {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: none;
+    background: green;
+    width: 15px;
+    height: 15px;
+    color: #fff;
+    padding: 1px;
+    text-align: center;
+    line-height: 0;
+    border-radius: 100px;
+    font-size: small;
+    overflow: hidden;
+}
+.App .overlay .modal .page .active i {
+    display: block;
+}
+.App .overlay .modal .page .card:hover {
+    opacity: .5;
+}
+.App .overlay .modal .page.B > button {
+    clear: both;
+    float: left;
+    width: 100px;
+    margin-top: 20px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: small;
+    color: #fff;
+    background: #090;
+}
+.App .overlay .modal .form button img {
+    width: 25px;
+    height: 25px;
+}
+.App .overlay .modal button[disabled] {
+    background: #fff;
+    border: 1px solid #ccc;
+}
+.App .overlay .modal .texter {
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: -30px;
+    color: var(--primary);
+    font-family: 'Montserrat';
+}
+.App .overlay .modal .texter h4 {
+    font-size: 14px;
+    font-weight: bold;
+}
+.App .overlay .modal .texter ol {
+    font-size: 11px;
+    color: #666;
+}
+.App .overlay .modal .texter ol li {
+    margin-bottom: 5px;
+}
+.App .overlay .modal .footer {
+    height: 40px;
+    margin-top: 50px;
+    color: var(--primary);
+    line-height: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    font-size: small;
+    font-family: 'Santoshi';
+}
+.App .overlay .modal .footer button {
+    border: none;
+    float: right;
+    width: 120px;
+    height: 35px;
+    color: #fff;
+    background: var(--primary);
+    border-radius: 5px;
+}
+.App .mainbar #wallet .payment {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+.App .mainbar #wallet .payment .card {
+    position: relative;
+    width: 30%;
+    height: 100px;
+    border: none;
+    margin-bottom: 25px;
+    cursor: pointer;
+    border-radius: 15px;
+    overflow: hidden;
+}
+.App .mainbar #wallet .payment .bank {
+    width: 100%;
+    height: 180px;
+    padding: 30px 20px;
+}
+.App .mainbar #wallet .payment .card .pick {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: var(--primary);
+    background: rgba(255,255,255,.6);
+    opacity: .0;
+    transition: 0.2s ease-in-out;
+}
+.App .mainbar #wallet .payment .pick.active {
+    opacity: 1;
+}
+.App .mainbar #wallet .payment span {
+    position: absolute;
+    top: 0;
+    left: 5px;
+    font-size: 20px;
+}
+.App .mainbar #wallet .payment .bank img {
+    position: absolute;
+    width: 110px;
+    height: 100px;
+    margin-top: 7px;
+    border-radius: 10px;
+    border: 1px solid #eee;
+}
+.App .mainbar #wallet .payment .bank .info {
+    margin-left: 130px;
+    padding-top: 20px;
+    color: #666;
+}
+.App .mainbar #wallet .payment .bank .info i {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: var(--primary);
+    font-size: 15px;
+}
+.App .mainbar #wallet .payment .bank span {
+    display: block;
+    position: relative;
+    margin-bottom: 10px;
+    font-size: 11px;
+    font-family: 'Montserrat';
+}
+.App .mainbar #wallet .payment .bank span b {
+    color: #666;
+}
+.App .mainbar #wallet #paypal-button {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: -40px;
+    width: 150px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    opacity: 1;
+}
+.App .mainbar #wallet #paypal-button.show {
+    display: block;
+    margin-top: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.App .mainbar #shelf .pub {
+    display: flex;
+    padding: 20px 10px;
+    flex-wrap: wrap;
+}
+.App .mainbar #shelf .pub .rack {
+    width: 150px;
+    height: 200px;
+    perspective: 1000px;
+    opacity: .0;
+    margin: 0px 5px 20px 5px;
+    margin-right: -50px;
+    transition: 0.5s ease-in-out;
+    animation: stagger 1s ease forwards;
+}
+@keyframes stagger {
+    0% {
+        margin-right: -50px;
+    }
+    100% {
+        margin-right: -45px;
+        opacity: 1;
+    }
+}
+.App .mainbar #shelf .pub .rack:hover {
+    position: relative;
+    z-index: 1;
+}
+.App .mainbar #shelf .book {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    z-index: 999 !important;
+    cursor: pointer;
+    border-top: 2px solid #fff;
+    border-left: 2px solid #1d9bf0;
+    border-bottom: 2px solid #fff;
+    box-shadow: 0px 10px 20px 0px rgba(0,0,0,.2);
+
+    transform-style: preserve-3d;
+    transform: scale(0.9) rotateY(35deg);
+    transition: 0.5s ease-in-out;
+}
+.App .mainbar #shelf .book::before {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    content: "";
+    width: 10px;
+    height: 25px;
+    background: #f01d1d;
+    z-index: -1;
+}
+.App .mainbar #shelf .book:hover {
+    transform: scale(1.0);
+    filter: grayscale(1);
+    border-top: none;
+    border-bottom: none;
+}
+.App .mainbar #shelf .book .cover {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    opacity: .0;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s linear;
+}
+.App .mainbar #shelf .book:hover .cover {
+    opacity: 1;
+}
+.App .mainbar #transaction .receipt {
+    width: 400px;
+    height: 450px;
+    margin: auto;
+    margin-top: 10vh;
+    padding: 30px;
+    box-shadow: 0px 0px 20px 0px #ddd;
+    background: #fff;
+    border-radius: 10px;
+    animation: pop 1s ease-in-out 0s 1 forwards;
+}
+.App .mainbar #transaction .receipt::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "";
+    z-index: 9999999;
+    width: 100%;
+    height: 100%;
+    opacity: .1;
+    background-size: contain;
+    background-position: center 20px;
+}
+@keyframes pop {
+    from {
+        opacity: .0;
+        transform: scale(0.8);
+    }
+    to   {
+        opacity: 1;
+        transform: scale(0.9);
+    }
+}
+.App .mainbar #transaction .receipt h2 {
+    height: 40px;
+    border-bottom: 1px solid #f6f6f6;
+    font-size: 15px;
+    font-family: 'Montserrat';
+}
+.App .mainbar #transaction .receipt button {
+    float: right;
+    width: 100px;
+    height: 30px;
+    background: #eeeeee;
+    margin-top: -6px;
+    border: none;
+    border-radius: 100px;
+    font-size: small;
+    font-family: 'Santoshi';
+}
+.App .mainbar #transaction .receipt ul {
+    width: 350px;
+    margin: auto;
+    margin-top: 50px;
+    padding: 0;
+    font-size: 12px;
+    font-family: 'Montserrat';
+}
+.App .mainbar #transaction .receipt ul li {
+    width: 100%;
+    height: 35px;
+    padding-top: 10px;
+    margin-bottom: 10px;
+    color: var(--primary);
+    list-style: none;
+    border-bottom: 1px dashed #eee;
+}
+.App .mainbar #transaction .receipt ul span {
+    float: right;
+    color: #666;
+}
+.App .mainbar #settings .card
+,
+.App .mainbar #settings .imgl {
+    position: relative;
+    width: 100%;
+    padding: 0;
+    height: 150px;
+    background: #fff;
+    border: none;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.App .mainbar #settings .card h2 {
+    position: relative;
+    z-index: 2;
+    height: 40px;
+    padding: 10px;
+    background: #fff;
+    margin-bottom: 0;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+    font-family: 'Santoshi';
+}
+.App .mainbar #settings .card h2 i {
+    margin-right: 10px;
+}
+.App .mainbar #settings .card h2 a {
+    color: var(--primary);
+    float: right;
+    font-size: 12px;
+}
+.App .mainbar #settings .card .box {
+    padding: 10px 40px 10px 40px;
+    font-size: small;
+    font-family: 'Montserrat';
+}
+.App .mainbar #settings .card .box input {
+    margin-top: 10px;
+    border: none;
+    border-bottom: 1px solid #eee;
+}
+.App .mainbar #settings .card .box i {
+    padding-top: 12px;
+}
+.App .mainbar #settings .card .box button {
+    float: right;
+    width: 100px;
+    height: 30px;
+    color: #000;
+    background: #f4f5f8;
+    border: none;
+    border-radius: 5px;
+    margin-top: -10px;
+    font-size: small;
+    font-family: 'Santoshi';
+}
+.App .mainbar #settings .ribbon {
+    display: block;
+    position: absolute;
+    width: 150px;
+    height: 20px;
+    color: #fff;
+    text-align: center;
+    font-size: 10px;
+    padding: 3px;
+    transform: rotate(-45deg);
+    z-index: 1;
+    left: -40px;
+    top: 60px;
+}
+.App .mainbar #settings .card .box .speech {
+    display: block;
+    color: #666;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+.App .mainbar #settings .imgl figure {
+    position: relative;
+    float: left;
+    width: 200px;
+    height: 100%;
+    padding: 10px;
+    overflow: hidden;
+}
+.App .mainbar #settings .imgl .tip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: #ccc;
+    padding: 10px;
+    padding-top: 20px;
+    text-align: center;
+    font-size: 12px;
+    font-family: 'Santoshi';
+}
+.App .mainbar #settings .imgl .tip i {
+    display: block;
+    font-size: 50px;
+}
+.App .pagination {
+    margin-top: 10px;
+    font-size: small;
+    justify-content: center;
+}
+.App .pagination .page-item {
+    border-radius: 10px;
+}
+.App .pagination .page-link {
+    width: 34px;
+    height: 32px;
+    padding: 7px 5px 5px 5px;
+    text-align: center;
+    color: var(--primary);
+    border: none;
+    box-shadow: none;
+}
+.App .pagination .active .page-link {
+    color: #fff;
+    background: var(--primary);
+    border-color: var(--primary);
+}
+.App .mainbar table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    font-size: small;
+    font-family: 'Santoshi';
+}
+.App .mainbar table thead th {
+    height: 70px;
+    padding: 10px;
+}
+.App .mainbar table tbody td {
+    height: 50px;
+    padding: 10px;
+}
+.App .mainbar table tbody td span {
+    display: inline-block;
+    width: 100px;
+    height: 25px;
+    border-radius: 100px;
+    color: #fff;
+    padding: 4px;
+    font-size: 11px;
+    border: none;
+}
+.App .mainbar table tbody td span.create {
+    color: #090;
+}
+.App .mainbar table tbody td span.update {
+    color: #06f;
+}
+.App .mainbar table tbody td span.delete {
+    color: #c30;
+}
+.App .mainbar table tbody td span.manage {
+    color: #f90;
+}
+.App .mainbar table tbody td span.button {
+    width: 50px;
+    height: 25px;
+    padding: 5px;
+    background:#1a1a1a;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 100px;
+    font-size: 10px;
+    font-family: 'Santoshi';
+    transition: 0.2s ease-in-out;
+}
+.App .mainbar table tbody td span#create {
+    background: #090;
+}
+.App .mainbar table tbody td span#update {
+    background: #09f;
+}
+.App .mainbar table tbody td span#delete {
+    background: #e05;
+}
+.App .mainbar table tbody td span#manage {
+    background: #f90;
+}
+.App .mainbar table tbody td button {
+    width: 100px;
+    height: 25px;
+    border-radius: 100px;
+    color: #fff;
+    padding: 4px;
+    font-size: 11px;
+    border: none;
+}
+.App .mainbar table tbody td button.create {
+    background: #090;
+}
+.App .mainbar table tbody td button.update {
+    background: #06f;
+}
+.App .mainbar table tbody td button.delete {
+    background: #c30;
+}
+.App .mainbar table tbody td button.manage {
+    background: #f90;
+}
+.App .mainbar table thead tr:nth-child(odd) {
+    background: #ffffff;
+}
+.App .mainbar table tbody tr:nth-child(even){
+    background: #ffffff;
+}
+
+@media only screen and (min-width: 240px) and (max-width:320px)
+                       ,
+                       (min-width: 320px) and (max-width:480px)
+                       ,
+                       (min-width: 480px) and (max-width:768px)
+{
+    #auth .page {
+        width: 320px;
+        padding: 30px;
+    }
+    #auth footer .bar {
+        width: 320px;
+    }
+    @keyframes page {
+        0% {
+            top: 10vh;
+            opacity: .0;
+        }
+        100% {
+            top: 25vh;
+            opacity: 1;
+        }
+    }    
+    .App .headbar
+    ,
+    .App .mainbar
+    ,
+    .App .sidebar {
+        position: fixed;
+    }
+    .App .headbar
+    ,
+    .App .mainbar {
+        left: 0;
+        width: 100%;
+    }
+    .App .headbar {
+        z-index: 5;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .App .mainbar {
+        padding: 20px;
+        padding-top: 80px;
+    }
+    .App .sidebar {
+        width: 250px;
+        left: -250px;
+        opacity: .1;
+    }
+    .App .sidebar nav, .nav-section {
+        font-size: 12px;
+    }
+    .App .sidebar.toggle {
+        left: 0;
+        opacity: 1;
+        box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.2);
+    }
+    .App .mainbar .content {
+        margin-bottom: 0;
+    }
+    .App .mainbar table {
+        font-size: 12px;
+        white-space: nowrap;
+    }
+    .App .mainbar .trailer h2 span {
+        font-size: 10px;
+    }
+    .App .mainbar .trailer h2 {
+        font-size: 14px;
+    }
+    .App .mainbar .trailer h2 button {
+        position: relative;
+        width: 120px;
+        height: 30px;
+        font-size: 12px;
+        z-index: 5;
+        margin-top: -16px;
+    }
+    .App .headbar .droplist {
+        right: 10px;
+    }
+    .App .mainbar #dashboard .board {
+        padding: 20px;
+        text-align: left;
+        font-size: 12px;
+        background-size: 100%;
+    }
+    .App .mainbar #dashboard .board a {
+        font-size: 12px;
+    }
+    .App .mainbar #dashboard .board img {
+        right: 0;
+    }
+    .App .mainbar .alert {
+        width: 100%;
+        padding: 10px;
+    }
+    .App .mainbar .content .form
+    ,
+    .App .mainbar .content .side {
+        width: 100%;
+        float: none;
+    }
+    .App .mainbar .content #flat p input
+    ,
+    .App .mainbar .content #flat p select {
+        width: 170px;
+    }
+    .App .mainbar nav.links {
+        white-space: nowrap;
+        overflow: auto;
+    }
+    .App .mainbar nav.links ul li {
+        width: 50%;
+    }
+    .App .mainbar .content #flat p i {
+        right: 130px;
+    }
+    .App .mainbar nav.tab {
+        width: 100%;
+    }
+    .App .mainbar #wallet .payment .bank {
+        padding: 40px 20px;
+    }
+    .App .mainbar #wallet .payment .info {
+        margin-left: 110px !important;
+        padding-top: 10px !important;
+    }
+    .App .mainbar #wallet .payment .bank img {
+        width: 100px;
+        height: 90px;   
+    }
+    .App .mainbar #shelf .pub {
+        padding: 0;
+    }
+    .App .mainbar #shelf .pub .rack {
+        margin-bottom: 10px;
+        margin-right: -75px;
+    }
+    @keyframes stagger {
+        0% {
+            margin-right: -75px;
+        }
+        100% {
+            margin-right: -72px;
+            opacity: 1;
+        }
+    }    
+    .App .mainbar #settings .box .speech {
+        margin-top: 20px !important;
+    }
+    .App .mainbar .row .card {
+        min-height: 160px;
+    }
+    .App .mainbar .row .card.c {
+        height: 160px;
+    }
+    .App .mainbar .row .card.w .n-w .g {
+        display: block;
+        width: 90%;
+        margin: auto;
+        white-space: normal;
+        font-size: small;
+    }
+    .App .mainbar .row .card.w .box {
+        white-space: nowrap;
+    }
+    .App .overlay .modal {
+        width: 90%;
+        min-height: 260px;
+        margin-bottom: 50px;
+        border-radius: 10px;
+    }
+    .App .overlay .modal h2 {
+        font-size: 12px;
+    }
+    .App .overlay .modal span {
+        font-size: 12px;
+        letter-spacing: 0.5px;
+    }
+    .App .overlay .modal span#hint {
+        max-width: 150px;
+    }
+    .App .overlay .modal .form {
+        width: 100%;
+    }
+    .App .overlay .modal .page .flex {
+        padding: 0;
+        margin: 20px 0 20px 0;
+    }
+    .App .overlay .modal .page .data {
+        padding-left: 110px;
+        font-size: 10px;
+    }
+    .App .mainbar #transaction .receipt {
+        width: 300px;
+        height: 250px;
+        padding: 20px;
+    }
+    .App .mainbar #transaction .receipt h2 {
+        font-size: 12px;
+        margin-bottom: 0;
+    }
+    @keyframes pop {
+        from {
+            opacity: .0;
+            transform: scale(0.8);
+        }
+        to   {
+            opacity: 1;
+            transform: scale(1.0);
+        }
+    }
+    .App .mainbar #transaction .receipt ul {
+        width: 100%;
+        font-size: 10px;
+        margin-top: 0;
+    }
+    .App .mainbar #transaction .receipt li {
+        height: 25px !important;
+        padding-top: 5px !important;
+        margin-bottom: 5px !important;
+    }
+    
+}

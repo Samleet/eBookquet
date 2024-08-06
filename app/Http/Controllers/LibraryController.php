@@ -49,17 +49,6 @@ class LibraryController extends Controller
      * @return LibraryResource
      * @throws ApplicationException
      */
-    public function delete(Request $request){
-
-        return response()->json($this->service->delete($request));
-
-    }
-
-    /**
-     * @param Request $request
-     * @return LibraryResource
-     * @throws ApplicationException
-     */
     public function show(Request $request){
 
         return response()->json($this->service->show($request));
@@ -71,9 +60,9 @@ class LibraryController extends Controller
      * @return LibraryResource
      * @throws ApplicationException
      */
-    public function reading(Request $request){
+    public function update(Request $request){
 
-        return response()->json($this->service->reading($request));
+        return response()->json($this->service->update($request));
         
     }
 
@@ -82,75 +71,10 @@ class LibraryController extends Controller
      * @return LibraryResource
      * @throws ApplicationException
      */
-    public function all(Request $request){
+    public function delete(Request $request){
 
-        return response()->json($this->service->all($request));
-        
+        return response()->json($this->service->delete($request));
+
     }
 
-    /**
-     * @param Request $request
-     * @return LibraryResource
-     * @throws ApplicationException
-     */
-    public function recent(Request $request){
-
-        return response()->json($this->service->recent($request));
-        
-    }
-
-    /**
-     * @param Request $request
-     * @return LibraryResource
-     * @throws ApplicationException
-     */
-    public function top(Request $request){
-
-        return response()->json($this->service->top($request));
-        
-    }
-
-    /**
-     * @param Request $request
-     * @return LibraryResource
-     * @throws ApplicationException
-     */
-    public function wishlist(Request $request){
-
-        return response()->json($this->service->wishlist($request));
-        
-    }
-
-    /**
-     * @param Request $request
-     * @return LibraryResource
-     * @throws ApplicationException
-     */
-    public function favorite(Request $request){
-
-        return response()->json($this->service->favorite($request));
-        
-    }
-
-    /**
-     * @param Request $request
-     * @return LibraryResource
-     * @throws ApplicationException
-     */
-    public function comments(Request $request){
-
-        return response()->json($this->service->comments($request));
-        
-    }
-
-    /**
-     * @param Request $request
-     * @return LibraryResource
-     * @throws ApplicationException
-     */
-    public function postComment(Request $request){
-
-        return response()->json($this->service->postComment($request));
-        
-    }
 }

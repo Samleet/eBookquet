@@ -10,35 +10,24 @@ class Setting extends Model
     use HasFactory;
 
     protected $guarded = [''];
-
-    public function enabled(string $key){
-
-        return true;
-
-    }
     
-    static function prepare($user = null, $key = null){
+    static function prepare($cfg = null, $key = null){
         $settings = [];
-        $getSetup = self::all();
-        if($user){
-            $getSetup = (object)$user->settings->all();
+        $getSetup = $cfg ?? self::all();
+
+        foreach($getSetup as $set){
+            if($key 
+            && $set->key != $key) {
+                continue;
+
+            }
+
+            $settings[$set->key] = self::collect($set);
+
         }
 
-        foreach($getSetup as $setting){
-            if($key){
-                if($setting->key == $key)
-                $settings[$setting->key]=self::collect(
-                    $setting
-                );
-            }
-            else {
-                $settings[$setting->key]=self::collect(
-                    $setting
-                );
-            }
-        }
+        return $settings;    
 
-        return $settings;        
     }
 
     static function collect($setting){
@@ -46,4 +35,5 @@ class Setting extends Model
         return $setting->value=='true' ? true : false;
 
     }
+    
 }

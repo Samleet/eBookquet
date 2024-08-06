@@ -51,11 +51,25 @@ class User extends Authenticatable implements JWTSubject
         'remember_token',
     ];
 
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
     protected $with = [
-        'bookquet',
-        'bookhuts',
-        'wishlist',
+        'wallet',
+        'bookhut',
+        // 'wishlist',
         'notifications',
+    ];
+
+    /**
+     * The relationships that should always be append.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'settings',        
     ];
 
     /**
@@ -76,27 +90,23 @@ class User extends Authenticatable implements JWTSubject
         if($this->photo != null){
             return $this->photo;
         }
+        
         return asset(
             'storage/profiles/user.jpg'
         );
     }
 
-    public function signature(){
+    public function ref(){
         $signature = substr(trim(md5($this->id)),  0, 10);
-
         return $signature;
     }
 
-    public function interests(){
-        return $this->hasMany(Interest::class, 'user_id');
+    public function wallet(){
+        return $this->hasOne(Wallet::class);
     }
 
     public function settings(){
-        return $this->hasMany(Setting::class, 'user_id');
-    }
-
-    public function bookquet(){
-        return $this->hasMany(Bookquet::class, 'user_id');
+        return $this->hasMany(Setting::class);
     }
 
     public function notifications(){
@@ -104,19 +114,22 @@ class User extends Authenticatable implements JWTSubject
         ->orderBy('id', 'DESC');
     }
 
-    public function bookhuts(){
-        return $this->hasMany(Bookhut::class, 'user_id');
+    public function bookhut(){
+        return $this->hasOne(Bookhut::class);
     }
 
-    public function groups(){
-        return $this->hasMany(Group::class);
+    public function wishlist(){
+        return $this->hasMany(Wishlist::class);
     }
 
-    public function library(){
-        return $this->hasMany(Library::class, 'user_id');
+    public function custodians(){
+        return $this->hasMany(Custodian::class);
+    }
+
+    public function getSettingsAttribute(){
+        
+        return Setting::prepare($this->settings()->get());
+
     }
     
-    public function wishlist(){
-        return $this->hasMany(Wishlist::class, 'user_id');
-    }
 }

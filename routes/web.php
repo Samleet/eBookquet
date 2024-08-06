@@ -13,6 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('/')
+    ->name('frontend.')
+    ->group(function(){
+
+    require_once('web/frontend.php') ?? exit();
+
+});
+
+Route::prefix('/publisher')
+    ->name('publisher.')
+    ->group(function(){
+
+    require_once('web/publisher.php') ?? exit();
+
 });

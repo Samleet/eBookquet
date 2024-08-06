@@ -62,7 +62,6 @@ class Handler extends ExceptionHandler
                     "Content-Type" => "application/json"
                 ]);
                 */
-
                 if($e instanceof ModelNotFoundException){
                     $model = str_replace("App\\Models\\", "", $e->getModel()); // strips model name
                     return response()->json([
@@ -70,28 +69,24 @@ class Handler extends ExceptionHandler
                         'status' => 404
                     ], 404);
                 }
-    
                 if($e instanceof MethodNotAllowedHttpException){
                     return response()->json([
                         'message' => $e->getMessage(),
                         'status' => 405
                     ], 405);
                 }
-
                 if($e instanceof NotFoundHttpException || $e instanceof RouteNotFoundException   ){
                     return response()->json([
                         "message" => Error::RESOURCE_NOT_FOUND,
                         'status' => 404
                     ], 404);
                 }
-
                 if($e instanceof ValidationException){
                     return response()->json([
                         'message' => $e->getMessage(),
                         'status' => 400
                     ], 400);
                 }
-
                 if($e instanceof AccessDeniedHttpException || $e instanceof AuthorizationException){
                     return response()->json([
                         'message' => $e->getMessage(),

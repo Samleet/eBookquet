@@ -30,6 +30,7 @@ class RegisterRequest extends FormRequest
             'lastname' => 'required|string',
             'email' => 'required|string|email|unique:users,email',
             'telephone' => 'nullable|string|unique:users,telephone',
+            'dob' => 'required|date',
             'password' => 'required|string|min:6',
             'confirmPassword' => 'required|string|same:password',
         ];
