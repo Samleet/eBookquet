@@ -96,6 +96,21 @@ use Illuminate\Support\Facades\Route;
             });
         });
 
+        Route::controller(HuttalkController::class)->group(function(){
+            $parent = '/bookhut/huttalk';
+
+            Route::prefix($parent)->name('huttalk.')->group(function(){
+                Route::get('/', 'index')->name('index');
+                Route::post('/', 'create')->name('create');
+                
+                Route::prefix('/{id}')->name('show.')->group(function(){
+                    Route::get('/', 'show')->name('index');
+                    Route::put('/', 'update')->name('update');
+                    Route::delete('/', 'delete')->name('delete');
+                });
+            });
+        });
+
         Route::controller(WishlistController::class)->group(function(){
             Route::prefix('/wishlist')->name('wishlist.')->group(function(){
                 Route::get('/', 'index')->name('index');

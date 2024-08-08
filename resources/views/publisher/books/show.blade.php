@@ -93,7 +93,7 @@
                                         >
                                             Share
                                         </label>
-                                        <button class="pull-right" form="book">Upload</button>
+                                        <button class="pull-right" form="book">Save</button>
                                     </p>
                                 </form>
                             </div>

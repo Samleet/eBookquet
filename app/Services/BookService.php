@@ -14,6 +14,7 @@ class BookService {
     public function __construct($id){
         $book = Book::query()->where('id', $id)->orWhere('title', $id)
             ->orWhere('isbn_code', $id)
+            ->active()
             ->firstOrFail();
 
         $this->book = $book;
@@ -72,7 +73,6 @@ class BookService {
 
     public function comment(){
         $book = $this->book;
-
         $comment = $book->comments()
             ->create([
             'user_id' => user()->id,

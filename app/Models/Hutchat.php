@@ -9,11 +9,12 @@ class Hutchat extends Model
 {
     use HasFactory;
 
+    protected $table = 'hutchats';
+
     protected $guarded = [''];
 
     public function reply(){
-        $key = 'reply_to';
-        return $this->belongsTo(Chat::class, $key);
+        return $this->belongsTo($this, 'reply_to');
     }
 
     public function user(){

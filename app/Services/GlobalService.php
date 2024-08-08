@@ -66,7 +66,6 @@ class GlobalService {
             $data = /**/ $bookService->$req(); //load resource cluster
 
         } catch (\Throwable $e){
-
             // dd($e);
             
         }
@@ -82,25 +81,49 @@ class GlobalService {
         $genres = Genre::inRandomOrder()
             ->take(10)
             ->get();
-        $books = Book::query()->where('type',$type)->whereNotNull('id');
-        $featured = (clone $books)
-            ->inRandomOrder()
-            ->take(10)
-            ->get();
+        
+        $books = Book::query()->where('type',$type)->whereNotNull('id')
+            ->active();
         $latest = (clone $books)
             ->latest()
             ->take(10)
             ->get();
-        $publishers = Publisher::where([
+
+        $suggest = (clone $books)
+            ->withCount('rentals')
+            ->latest('rentals_count')
+            ->take(10)
+            ->get();
+
+        $featured = (clone $books)
+            ->whereNotIn(
+                'id', 
+                $type == 'FREE' ? [] :
+                $suggest->pluck('id')
+            )
+            ->inRandomOrder()
+            ->take(10)
+            ->get();
+
+        $publishers = Publisher::query()
+        ->where([
             'verified' => 1
         ])
-            ->inRandomOrder()
-            ->take(10)
-            ->get();
-        $suggest = (clone $books)
-            ->inRandomOrder()
-            ->take(10)
-            ->get();
+        ->with([
+            'books' => function($query) {
+            $query->withCount('rentals');
+        }])
+        ->get()
+        /*
+        ->filter(function($publisher) {
+            return $publisher->books
+            ->sum('rentals_count') > 0;
+        })
+        */
+        ->sortByDesc(function($publisher) {
+            return $publisher->books
+            ->sum('rentals_count');
+        });
 
         return [
             'status' => 200,
@@ -121,13 +144,14 @@ class GlobalService {
         $publisher = Publisher::query()->with('books')->find((int)$id);
         $books = $publisher->books;
         $latest = [];
+        $oneWeek = 604800;
 
         foreach($books as $book){
             $date = carbon()->parse(
                 $book->created_at
             )->timestamp;
 
-            if(time() - $date < 86400){
+            if(time() - $date < $oneWeek){
                 $latest[] = $book;
             }
         }
@@ -174,9 +198,7 @@ class GlobalService {
                 )
             ]);
             */
-
             $data = $interest;
-
         }
 
         return [

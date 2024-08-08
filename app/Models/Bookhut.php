@@ -76,6 +76,10 @@ class Bookhut extends Model
         ->latest();
     }
 
+    public function huttalks(){
+        return $this->hasMany(Huttalk::class);
+    }
+
     public function hutchats(){
         return $this->hasMany(Hutchat::class);
     }

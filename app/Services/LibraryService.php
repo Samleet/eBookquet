@@ -157,7 +157,6 @@ class LibraryService {
                 'statistics' => json_encode($data) //updating book data
             ]);
             */
-            
         }
 
         if($isCompleted){
@@ -179,11 +178,6 @@ class LibraryService {
             ->delete(
             "library/$signature/".$book->storage()
         );
-
-        //delete assoc relation
-        $library->cards()->delete();
-        $library->vocals()->delete();
-        $library->posts()->delete();
 
         $library->delete();
 

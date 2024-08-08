@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Chat;
 use App\Jobs\Hutchat;
 use App\Exceptions\ApplicationException;
 use App\Enums\Error;

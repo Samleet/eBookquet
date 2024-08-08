@@ -22,7 +22,7 @@ class Rental extends Model
     }
 
     public function book(){
-        return $this->hasOne(Book::class);
+        return $this->belongsTo(Book::class);
     }
 
     public function payment(){

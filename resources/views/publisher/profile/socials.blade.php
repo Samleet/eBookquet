@@ -16,8 +16,8 @@
                             </p>
 
                             <p>
-                                <label>Instagram</label>
-                                <i class="ion-logo-instagram"></i> <input type="text" name="socials[instagram]" placeholder="" value="{{ @publisher()->socials->instagram }}"/>
+                                <label>Linkedin</label>
+                                <i class="ion-logo-linkedin"></i> <input type="text" name="socials[linkedin]" placeholder="" value="{{ @publisher()->socials->linkedin }}"/>
                             </p>
 
                             <p>

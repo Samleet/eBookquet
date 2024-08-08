@@ -3,14 +3,21 @@
 namespace App\Services;
 
 use App\Models\Book;
+use App\Jobs\Payment;
 use App\Exceptions\ApplicationException;
 use App\Enums\Error;
+use App\Services\ThirdParty\Paystack\PaystackService;
+use App\Services\PaymentService;
 
 class ShelfService {
 
+    private $payment;
+
     public function __construct(){
         
-        //
+        $this->payment = new PaymentService(
+            new PaystackService
+        );
 
     }
 
@@ -30,7 +37,6 @@ class ShelfService {
             $book->makeHidden([
                 'wishlist', 'comments'
             ]);
-            /
             $shelves[] = $shelf;
         }
         */
@@ -50,7 +56,8 @@ class ShelfService {
     public function create($request){
         $book = Book::query()->findOrFail( (int) $request->book_id );
         $rental = $request->rental;
-        $reference = \Str::lower(
+        $reference = $request->reference
+            ?? \Str::lower(
             \Str::random(10)
         );
         
@@ -59,27 +66,36 @@ class ShelfService {
             'book_id' => $book->id
         ])->first();
         
-
         if($shelf){
             
             throw new ApplicationException(Error::RESOURCE_IS_OWNED );
             
         }
         
-        /*
         if($rental){
+            $payment = $rental['payment'];
+            $amount = $payment['amount'];
+            $refId = $payment['reference'];
 
-            if(!$payment)
-            throw new ApplicationException(Error::BOOK_NOT_RENTOUT );
+            $payment = array_merge(
+                $payment, [
+                'email' => user()->email,
+                'reference' => $reference,
+            ]);
 
+            if(!$refId){
+
+                return /*payment*/ $this->payment->request($payment);
+
+            }
         }
-        */
 
         $bookshelf = bookhut()->bookshelf()
             ->create([
             'bookhut_id' => bookhut()->id,
             'book_id' => $book->id,
             'reference' => $reference,
+            'approved' => 1
         ]);
 
         if($rental){
@@ -102,6 +118,8 @@ class ShelfService {
                 'rental_id' => $rental->id,
 
             ]);
+
+            Payment::dispatch($rental);
         }
 
         return [
@@ -116,7 +134,6 @@ class ShelfService {
             ->bookshelf()
             ->where('book_id', $request->id)
             ->first();
-            // ->book;
         
         if(!$shelf){
             

@@ -44,6 +44,25 @@ class Library extends Model
         'resource'
     ];
 
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot() {
+
+        static::deleting(function(Library $lib){
+
+            $lib->cards()->delete();
+            $lib->vocals()->delete();
+            $lib->posts()->delete();
+    
+        });
+
+        parent::boot();
+        
+    }
+
     public function bookhut(){
         return $this->belongsTo(Bookhut::class);
     }

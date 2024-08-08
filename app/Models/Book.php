@@ -70,6 +70,10 @@ class Book extends Model
         ]);
     }
 
+    public function rentals(){
+        return $this->hasMany(Rental::class);
+    }
+
     public function comments(){
         return $this->hasMany(Comment::class);
     }
@@ -112,6 +116,12 @@ class Book extends Model
     public function storage(){
 
         return $file = (string) basename($this->book);
+        
+    }
+
+    public function scopeActive($query){
+
+        return $query->where('status', '=', 'ACTIVE');
         
     }
 

@@ -9,6 +9,8 @@ abstract class Message
     const BOOKHUT_MESSAGE = ":user on BookHut: :bookhut is requesting for your custodianship. Goto Bookhut dependants to accept or decline this request.";
     const HUTCHAT = "(Hutchat) :bookhut";
     const HUTCHAT_MESSAGE = ":user: :message";
+    const PAYMENT = "₦:amount rental payment";
+    const PAYMENT_MESSAGE = ":user has rented your book: :book for :renters person's within a duration of :duration days @ ₦:amount.";
 
     const BOOKHUT_REQUEST = 'You have a new join request from :user on Bookhut: :bookhut';
     const BOOKHUT_APPROVE = 'Congrats! Your join request to Bookhut: :bookhut has been successfuly approved. Welcome to the Hut';
